@@ -1,1 +1,1 @@
-# model2 방식의 웹 프로젝트 포트폴리오
+# EasyOn : netty 기반 java 소켓 서버
