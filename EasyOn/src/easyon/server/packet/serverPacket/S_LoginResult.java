@@ -3,7 +3,7 @@ package easyon.server.packet.serverPacket;
 import easyon.server.Opcodes;
 
 /** 로그인 결과 **/
-public class S_LoginResult extends SendPacket {
+public class S_LoginResult extends WritePacket {
 
     public static final int TYPE_OK = 1; // 로그인 성공
     public static final int TYPE_WRONG = 2; // 잘못된 계정 정보

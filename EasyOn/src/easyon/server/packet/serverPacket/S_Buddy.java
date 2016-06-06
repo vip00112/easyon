@@ -7,7 +7,7 @@ import easyon.object.model.User;
 import easyon.server.Opcodes;
 
 /** 친구 관련 **/
-public class S_Buddy extends SendPacket {
+public class S_Buddy extends WritePacket {
 
     public static final int TYPE_INFO = 1; // 내 정보 변경
     public static final int TYPE_LIST = 2; // 친구 목록

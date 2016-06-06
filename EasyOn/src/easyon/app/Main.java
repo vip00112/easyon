@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.util.logging.LogManager;
 
 import easyon.config.Config;
-import easyon.db.ChatTable;
 import easyon.db.UsersTable;
 import easyon.server.netty.Server;
 import easyon.util.DBFactory;
@@ -38,12 +37,9 @@ public class Main {
 
         // db load
         UsersTable.getInstance().getAllUsers();
-        ChatTable.getInstance().getAllChats();
 
         // socket server bind
         Server.getInstance().start();
-
-        // TODO manager open
     }
 
     /** 프로그램의 모든 리소스를 해제하고 종료 한다. **/

@@ -8,11 +8,12 @@ import easyon.config.Config;
 import easyon.object.ObjectManager;
 import easyon.object.model.User;
 import easyon.server.packet.clientPacket.C_Buddy;
+import easyon.server.packet.clientPacket.C_Join;
 import easyon.server.packet.clientPacket.C_Login;
-import easyon.server.packet.clientPacket.C_Chat;
+import easyon.server.packet.clientPacket.C_Memo;
 import easyon.server.packet.clientPacket.C_UpdateGroup;
 import easyon.server.packet.clientPacket.C_UpdateMyInfo;
-import easyon.server.packet.serverPacket.SendPacket;
+import easyon.server.packet.serverPacket.WritePacket;
 import easyon.util.CommonUtil;
 import easyon.util.GeneralThreadPool;
 import io.netty.channel.ChannelHandlerContext;
@@ -101,7 +102,7 @@ public class EasyClient {
 
     /** 패킷 전송
      *  @param packet 가공된 패킷 객체 **/
-    public void sendPacket(SendPacket packet) {
+    public void sendPacket(WritePacket packet) {
         byte[] data = packet.getBytes();
         if (data != null) {
             _ctx.writeAndFlush(packet.getByteBuf(_ctx.channel(), data, packet.getLength()));
@@ -134,8 +135,11 @@ public class EasyClient {
         case Opcodes.C_UPDATE_GROUP: // 그룹 정보 변경
             new C_UpdateGroup(this, packet);
             break;
-        case Opcodes.C_CHAT: // 채팅 관련
-            new C_Chat(this, packet);
+        case Opcodes.C_MEMO: // 쪽지 관련
+            new C_Memo(this, packet);
+            break;
+        case Opcodes.C_JOIN: // 회원가입
+            new C_Join(this, packet);
             break;
         }
     }

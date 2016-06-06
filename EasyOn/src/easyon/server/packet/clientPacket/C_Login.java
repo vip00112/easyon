@@ -2,13 +2,14 @@ package easyon.server.packet.clientPacket;
 
 import java.util.Map;
 
+import easyon.db.MemoTable;
 import easyon.db.UsersBuddyTable;
 import easyon.object.ObjectManager;
 import easyon.object.model.User;
 import easyon.server.EasyClient;
 import easyon.server.packet.serverPacket.S_Buddy;
-import easyon.server.packet.serverPacket.S_Chat;
 import easyon.server.packet.serverPacket.S_LoginResult;
+import easyon.server.packet.serverPacket.S_Memo;
 import easyon.server.packet.serverPacket.S_MyInfo;
 
 /** Client의 로그인 요청 <br>
@@ -40,7 +41,8 @@ public class C_Login extends ReadPacket {
             if (buddyRequests.size() > 0) {
                 client.sendPacket(new S_Buddy(S_Buddy.TYPE_REQUEST_LIST, buddyRequests));
             }
-            client.sendPacket(new S_Chat(S_Chat.TYPE_LIST, user));
+            int count = MemoTable.getInstance().getNotReadCount(user.getNo());
+            client.sendPacket(new S_Memo(S_Memo.TYPE_COUNT, count));
         } else {
             client.sendPacket(new S_LoginResult(S_LoginResult.TYPE_WRONG));
         }

@@ -4,7 +4,7 @@ import easyon.object.model.User;
 import easyon.server.Opcodes;
 
 /** 유저 정보(내정보) **/
-public class S_MyInfo extends SendPacket {
+public class S_MyInfo extends WritePacket {
 
     public S_MyInfo(User user) {
         writeC(Opcodes.S_MYINFO);

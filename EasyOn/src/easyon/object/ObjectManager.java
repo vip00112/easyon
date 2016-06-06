@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import easyon.object.model.Chat;
 import easyon.object.model.User;
 
 /** 모든 오브젝트를 관리하는 클래스 **/
@@ -17,12 +16,10 @@ public class ObjectManager {
 
     private Map<Integer, User> _allUsers; // 모든 유저 정보 key:user.no, value:user
     private Map<Integer, User> _loginUsers; // 로그인 유저 정보 key:user.no, value:user
-    private Map<Integer, Chat> _allChats; // 모든 채팅 정보 key:user.no, value:chat
 
     private ObjectManager() {
         _allUsers = new HashMap<Integer, User>();
         _loginUsers = new ConcurrentHashMap<Integer, User>();
-        _allChats = new ConcurrentHashMap<Integer, Chat>();
     }
 
     /** 유저 등록
@@ -79,23 +76,6 @@ public class ObjectManager {
                 user.logout();
             }
         }
-    }
-
-    /** 채팅 등록
-     *  @param chat 채팅 **/
-    public void addChat(Chat chat) {
-        if (!_allChats.containsKey(chat.getNo())) {
-            _allChats.put(chat.getNo(), chat);
-        }
-    }
-
-    /** 해당 번호의 채팅 반환
-     *  @param no 채팅 번호 **/
-    public Chat getChat(int no) {
-        if (_allChats.containsKey(no)) {
-            return _allChats.get(no);
-        }
-        return null;
     }
 
 }

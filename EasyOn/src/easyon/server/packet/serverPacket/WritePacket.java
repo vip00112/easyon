@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 
-public abstract class SendPacket {
-    private static final Logger _log = Logger.getLogger(SendPacket.class.getName());
+public abstract class WritePacket {
+    private static final Logger _log = Logger.getLogger(WritePacket.class.getName());
 
     private int _opcode; // opcode Key
     private boolean _isKey = true;

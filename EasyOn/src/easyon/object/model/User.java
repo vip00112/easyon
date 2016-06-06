@@ -2,13 +2,12 @@ package easyon.object.model;
 
 import java.util.List;
 
-import easyon.db.ChatTable;
 import easyon.db.UsersBuddyTable;
 import easyon.db.UsersTable;
 import easyon.object.ObjectManager;
 import easyon.server.EasyClient;
 import easyon.server.packet.serverPacket.S_Buddy;
-import easyon.server.packet.serverPacket.SendPacket;
+import easyon.server.packet.serverPacket.WritePacket;
 
 /** 유저 정보 관리 **/
 public class User {
@@ -23,7 +22,6 @@ public class User {
     private String _groupName; // 소속된 그룹
     private List<User> _buddyList; // 친구 목록
     private List<String> _groupList; // 내가 만든 그룹
-    private List<Chat> _chatList; // 채팅 목록
     private EasyClient _client;
 
     public User(int no, String id, String password, String nickname, String statusMsg, byte[] profile) {
@@ -100,11 +98,6 @@ public class User {
         return _buddyList;
     }
 
-    /** 채팅 목록 **/
-    public List<Chat> getChatList() {
-        return _chatList;
-    }
-
     /** 친구 추가
      *  @param buddyNo 추가할 친구 번호
      *  @param groupName 그룹명
@@ -179,7 +172,7 @@ public class User {
 
     /** 패킷 전송
      *  @param packet 가공된 패킷 객체 **/
-    public void sendPacket(SendPacket packet) {
+    public void sendPacket(WritePacket packet) {
         if (_isOnline && _client != null) {
             _client.sendPacket(packet);
         }
@@ -191,7 +184,6 @@ public class User {
         _isOnline = true;
         _buddyList = UsersBuddyTable.getInstance().getBuddys(_no);
         _groupList = UsersBuddyTable.getInstance().getGroups(_no);
-        _chatList = ChatTable.getInstance().getChats(_no);
 
         // 내 접속을 친구에게 알림
         for (User buddy : _buddyList) {
@@ -210,7 +202,6 @@ public class User {
         _isOnline = false;
         _buddyList = null;
         _groupList = null;
-        _chatList = null;
     }
 
 }
